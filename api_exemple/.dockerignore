@@ -1,0 +1,9 @@
+# Ignorer le fichier Dockerfile lui-même
+Dockerfile
+
+# Ignorer les caches
+__pycache__
+
+# Ignorer le read.me
+read.me
+
