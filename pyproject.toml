@@ -10,6 +10,7 @@ python = "^3.12"
 fastapi = "^0.111.0"
 pytest = "^8.2.2"
 watchdog = "^4.0.1"
+sqlalchemy = "^2.0.30"
 
 
 [build-system]
