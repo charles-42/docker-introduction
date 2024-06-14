@@ -1,5 +1,7 @@
 FROM python:3.12-slim
 
+ENV DATABASE_URL="sqlite:///./test.db"
+
 WORKDIR /app
 
 COPY ./requirements.txt /app/requirements.txt

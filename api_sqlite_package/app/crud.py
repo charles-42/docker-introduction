@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models
+from app import models
 
 def get_list(db: Session):
     return db.query(models.ShoppingItem).all()

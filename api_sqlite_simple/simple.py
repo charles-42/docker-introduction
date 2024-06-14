@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 from fastapi import FastAPI, HTTPException
 import os
 
-
-
 SQLALCHEMY_DATABASE_URL = "sqlite:///app/data/shopping_list.db"
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 
 Base = declarative_base()
@@ -16,12 +16,10 @@ Base = declarative_base()
 class ShoppingItem(Base):
     __tablename__ = "shopping_items"
 
-    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String, primary_key=True, index=True)
     quantity = Column(Float)
     unit = Column(String)
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Configuration de l'engine SQLAlchemy
 Base.metadata.create_all(bind=engine)
@@ -33,12 +31,11 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message": "Bonjour, bienvenue sur l’API liste de course"}
+    return {"message": "Bonjour et bienvenue sur l’API liste de course"}
 
 @app.get("/home")
 def home():
     return {"message": "Bonjour, bienvenue à la maison"}
-
 
 @app.get("/get_list")
 def get_list():
@@ -58,18 +55,17 @@ def add_to_list(name: str, quantity: float, unit: str):
     else:
         item = ShoppingItem(name=name, quantity=quantity, unit=unit)
         session.add(item)
+
     session.commit()
     session.refresh(item)
     return item
 
-
 @app.delete("/remove_from_list")
 def remove_from_list(name: str):
-    items = session.query(ShoppingItem).filter(ShoppingItem.name == name).all()
+    items = session.query(ShoppingItem).filter(ShoppingItem.name == name).first()
     if items:
-        for item in items:
-            session.delete(item)
-            session.commit()
+        session.delete(items)
+        session.commit()
         return {"message": "Item removed"}
     else:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -80,4 +76,4 @@ def clean_list():
     session.commit()
     return {"message": "List cleaned"}
 
-#  uvicorn simple:app --reload
+# #  uvicorn simple:app --reload
