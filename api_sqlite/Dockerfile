@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-CMD ["sh", "-c", "cd /app && uvicorn simple:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", "cd /app && uvicorn simple:app --host 0.0.0.0 --port 8000 --reload"]

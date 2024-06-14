@@ -7,7 +7,7 @@ import os
 
 
 
-SQLALCHEMY_DATABASE_URL = "sqlite:////data/shopping_list.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///app/data/shopping_list.db"
 
 
 Base = declarative_base()
@@ -34,6 +34,11 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Bonjour, bienvenue sur l’API liste de course"}
+
+@app.get("/home")
+def home():
+    return {"message": "Bonjour, bienvenue à la maison"}
+
 
 @app.get("/get_list")
 def get_list():
