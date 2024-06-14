@@ -15,6 +15,7 @@ def add_to_list(db: Session, name: str, quantity: float, unit: str):
     db.refresh(item)
     return item
 
+
 def remove_from_list(db: Session, name: str):
     item = db.query(models.ShoppingItem).filter(models.ShoppingItem.name == name).first()
     if item:

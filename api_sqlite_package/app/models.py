@@ -1,10 +1,11 @@
 from sqlalchemy import Column, Integer, String, Float
-from app.database import Base
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+Base = declarative_base()
 
 class ShoppingItem(Base):
     __tablename__ = "shopping_items"
 
-    id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String, primary_key=True,index=True)
     quantity = Column(Float)
     unit = Column(String)
